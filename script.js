@@ -6,9 +6,10 @@ console.log(arrNum)
 
 let result = 1
 
-for(let i = 1; i <= arrNum.length; i++){
+for(let i = 0; i < arrNum.length; i++){
    
-    result = result * i
+    result = result * arrNum[i]
+    console.log(arrNum[i])
     
 }
 
