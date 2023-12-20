@@ -1,25 +1,17 @@
-let num = 266219;
+let lang = 'ru'
 
-let arrNum = Array.from(String(num), Number)
-
-console.log(arrNum)
-
-let result = 1
-
-for(let i = 0; i < arrNum.length; i++){
-   
-    result = result * arrNum[i]
-    console.log(arrNum[i])
-    
+if(lang === 'ru'){
+    console.log('Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье')
+} else if (lang === 'en'){
+    console.log('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday');
 }
 
-console.log(result)
+// У нас есть переменная namePerson. Если значение этой переменной “Артем” то вывести в консоль “директор”, 
+// если значение “Александр” то вывести в консоль “преподаватель”, с любым другим значением вывести в консоль “студент”
+//  Решить задачу с помощью нескольких тернарных операторов, без использования if или switch
 
-let powNum = result ** 3;
+let namePerson = 'Артем'
 
-console.log(powNum)
+namePerson === "Артем" ? console.log("директор") : namePerson === "Александр" ? console.log("преподаватель") : console.log("студент")
 
-let twoFirstNum = String(powNum).slice(0,2)
-
-console.log( Number(twoFirstNum))
 
