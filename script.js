@@ -1,10 +1,12 @@
 
-const someFunction = function(str){
-    if(typeof str !== 'string'){
+const transformStr = function(str){
+
+    if(typeof str !== 'string' || str == false){
         return 'не строка'
-    } else if(typeof str === 'string'){
-       return str.trim().substring(0, 30) + '...'
+    } 
+     if(typeof str === 'string' && str.length > 30){
+        return str.trim().substring(0, 30) + '...'
     }
 }
 
-console.log(someFunction())
+console.log(transformStr('  kjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj'))
