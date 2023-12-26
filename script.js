@@ -1,43 +1,32 @@
 
-// Задание 01
-let inputNum;
+// Необходимо выполнить в отдельном js файле, подключенному к отдельной HTML странице
 
-const isNumber = function(num){
-    return !isNaN(parseFloat(num)) && isFinite(num) && num !== 0
-}
+// Создать массив week и записать в него дни недели в виде строк
 
-  do{
-    inputNum = +prompt("Сколько будет стоить данная работа?");
-  }while(!isNumber(inputNum))
+// Вывести на экран все дни недели
+// Каждый из них с новой строчки
+// Выходные дни - курсивом
+// Текущий день - жирным шрифтом(использовать объект даты)
 
-console.log(inputNum)
+const day = document.getElementById('days');
+  
+const week = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье']
 
+  const dayOfWeek = new Date().getDay() - 1 // чтобы неделя началась с понедельника
 
-// Задание 02
-
-const arr = ['123', '258456', '753147', '456963', '789321', '463985', '256973']
-
-for(let i = 0; i < arr.length; i++){
-    if (arr[i].startsWith('2') || arr[i].startsWith('4')) {
-        console.log(arr[i]);
+  for (let i = 0; i < week.length; i++){
+    if(i < 5 && i != dayOfWeek){
+      day.innerHTML += `${week[i]} <br>`
     }
-}
-
-
-function isPrime(num) {
-    for (let i = 2; i < num; i++) {
-      if (num % i === 0) return false;
-    }
-    return num !== 1;
-  }
-
-  function printPrimes(max) {
-    for (let i = 2; i <= max; i++) {
-      if (isPrime(i)) console.log(`${i}: Делители этого числа: ${1} и ${i}`);
+    if (i > 4) {
+      day.innerHTML += `<i>${week[i]}</i><br>`;
+    }  
+    if (i === dayOfWeek) {
+      day.innerHTML += `<b>${week[i]}</b><br>`;
     }
   }
 
-  printPrimes(100)
+  console.log(dayOfWeek)
 
 
 
