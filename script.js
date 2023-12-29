@@ -1,32 +1,129 @@
 
-// Необходимо выполнить в отдельном js файле, подключенному к отдельной HTML странице
+const appData = {
+  title: '',
+  screens: [],
+  screenPrice: 0,
+  adaptive: false,
+  addServices: [],
+  fullPrice: 0,
+  servicePercentPrice: 0,
+  allServicePrices: 0,
+  rollback: 20,
 
-// Создать массив week и записать в него дни недели в виде строк
+  isNumber: function (num) {
+     return !isNaN(parseFloat(num)) && isFinite(num) && num !== 0
+  },
 
-// Вывести на экран все дни недели
-// Каждый из них с новой строчки
-// Выходные дни - курсивом
-// Текущий день - жирным шрифтом(использовать объект даты)
+  isString: function (value) {
+     return isNaN(value);
+  },
 
-const day = document.getElementById('days');
   
-const week = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье']
 
-  const dayOfWeek = new Date().getDay() - 1 // чтобы неделя началась с понедельника
+  asking: function(){
+     do{
+        appData.title = prompt("Как называется ваш проект?");
+     } while (appData.isNumber(appData.title))
+     console.log(typeof appData.title)
 
-  for (let i = 0; i < week.length; i++){
-    if(i < 5 && i != dayOfWeek){
-      day.innerHTML += `${week[i]} <br>`
-    }
-    if (i > 4) {
-      day.innerHTML += `<i>${week[i]}</i><br>`;
-    }  
-    if (i === dayOfWeek) {
-      day.innerHTML += `<b>${week[i]}</b><br>`;
-    }
+     for(let i = 0; i < 2; i++){
+        let price = 0;
+        let name = '';
+
+      do{
+        name = prompt("Какие типы экранов нужно разработать?");
+        price = +prompt("Сколько будет стоить данная работа?");
+  
+        console.log(appData.isString(name))
+      }while(appData.isString(name) && !appData.isNumber(price) )
+
+      appData.screens.push({id: i, name: name, price: price })
+
+     console.log(typeof name) 
+     console.log(typeof price)
+  } 
+
+     for(let i = 0; i < 2; i++){
+        let name = '';
+        let price = 0;
+
+        do {
+           name = prompt("Какой дополнительный тип услуги нужен?");
+           price = +prompt("Сколько это будет стоить?")
+        }while(appData.isString(name) && !appData.isNumber(price)) 
+          
+          appData.addServices.push({id: i, name: name, price: price});
+          console.log(typeof name) 
+          console.log(typeof price)
+        }
+     appData.adaptive = confirm("Нужен ли адаптив на сайте?");
+  },
+
+  addPrices: function(){
+    //  for(let screen of appData.screens){
+    //     appData.screenPrice += +screen.price
+    //  }
+    appData.screenPrice = appData.screens.reduce((acc, currentValue) => acc + currentValue.price)
+    
+
+     for(let key in appData.addServices){
+        appData.allServicePrices += appData.addServices[key]
+       }
+  },
+  
+  start: function(){
+     appData.asking()
+     appData.addPrices();
+     // appData.getAllServicePrices();
+     appData.getFullPrice(appData.screenPrice, appData.allServicePrices)
+     appData.getServicePercentPrices()
+     appData.getTitle()
+     appData.getRollBackMessage(appData.fullPrice)
+     appData.logger();
+  },
+
+//    getAllServicePrices: function(){
+//      for(let key in appData.addServices){
+//       appData.allServicePrices += appData.addServices[key]
+//      }
+// },
+
+getFullPrice: function(){
+  appData.fullPrice =  +appData.screenPrice + appData.allServicePrices
+},
+
+getServicePercentPrices: function(){
+  appData.servicePercentPrice =  Math.ceil((appData.fullPrice - (appData.fullPrice * (appData.rollback/100)))) 
+},
+
+getTitle: function(){
+  appData.title = appData.title.trim()[0].toUpperCase() + appData.title.trim().substring(1).toLowerCase()
+},
+
+getRollBackMessage: function(price){
+  if(price <= 0){
+     return "Что то пошло не так"
   }
+  if(price >= 30000){
+     return "Даем скидку в 10%"
+  } if(price >= 15000 && price < 30000){
+     return "Даем скидку в 5%"
+  } if(price < 15000 && price > 0){
+     return "Скидка не предусмотрена"
+  }
+},
 
-  console.log(dayOfWeek)
+logger: function(){
+  console.log(appData.fullPrice)
+  console.log(appData.servicePercentPrice)
+  console.log(appData.screens)
+  console.log(appData.addServices)
+}
+
+
+}
+
+appData.start();
 
 
 
